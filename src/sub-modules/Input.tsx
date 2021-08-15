@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { sendMoney } from "../transaction-modules/walletConn";
 
+
 const Input: React.FC = () => {
   const [amount, setAmount] = useState(0);
   const [address, setAddress] = useState("");
@@ -19,6 +20,8 @@ const Input: React.FC = () => {
     e.preventDefault();
     await sendMoney(address, amount);
   };
+
+  
 
   return (
     <form className="input-form">
@@ -40,6 +43,7 @@ const Input: React.FC = () => {
             Submit
           </button>
         </div>
+        
       </div>
     </form>
   );

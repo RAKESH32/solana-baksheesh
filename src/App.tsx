@@ -1,20 +1,13 @@
-import React,{useEffect} from 'react';
+import React from 'react';
 import './App.css';
 import Input from './sub-modules/Input';
-import { initWallet, WalletAdapter } from './transaction-modules/walletConn';
-import {Connection} from "@solana/web3.js";
+import { initWallet } from './transaction-modules/walletConn';
 
 function App() {
 
-  const conn = React.useRef<Connection>();
-  const wall = React.useRef<WalletAdapter>();
-
-  useEffect(() => {
-    initWallet().then(([connection, wallet]: [Connection, WalletAdapter]) => {
-      conn.current = connection;
-      wall.current = wallet;
-    });
-  }, []);
+  const accountValidate = () => {
+    initWallet();
+  };
 
 
   return (
@@ -22,6 +15,9 @@ function App() {
       <div className="App-body">
         <h3>Send Money !!</h3>
         <Input />
+        <button className="send-buttons" onClick={accountValidate}>
+            Validate Account
+          </button>
       </div>
     </div>
   );
