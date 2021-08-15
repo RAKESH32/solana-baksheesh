@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import { sendMoney } from "../transaction-modules/walletConn";
 
 const Input: React.FC = () => {
   const [amount, setAmount] = useState(0);
@@ -17,6 +17,7 @@ const Input: React.FC = () => {
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.preventDefault();
+    await sendMoney(address, amount);
   };
 
   return (
