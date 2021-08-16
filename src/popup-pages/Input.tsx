@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { sendMoney } from "../transaction-modules/walletConn";
+import { sendMoney } from "./walletConn";
 
 
 const Input: React.FC = () => {

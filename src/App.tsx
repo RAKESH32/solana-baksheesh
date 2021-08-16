@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
-import Input from './sub-modules/Input';
-import { initWallet } from './transaction-modules/walletConn';
+import Input from './popup-pages/Input';
+import { initWallet } from './popup-pages/walletConn';
 
 function App() {
 

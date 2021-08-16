@@ -25,13 +25,21 @@ const plugins = [
 
 module.exports = {
     mode : "production",
+    devtool: false,
     entry:{
-        popup: './src/popup-pages/popup.tsx'
+        Input: './src/popup-pages/Input.tsx',
+        walletConn : './src/popup-pages/walletConn.tsx',
+        popup: './src/popup-pages/popup.tsx',
+       
+
     },
     output:{
         filename:'[name].js',
         path:resolve(__dirname,'dist'),
 
+    },
+    resolve: {
+        extensions: ['.ts', '.js', '.json','.tsx']
     },
 
     module:{
