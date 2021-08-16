@@ -16,7 +16,7 @@ function App() {
         <h3>Send Money !!</h3>
         <Input />
         <button className="send-buttons" onClick={accountValidate}>
-            Validate Account
+            Validate Wallet
           </button>
       </div>
     </div>
