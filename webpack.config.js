@@ -30,6 +30,8 @@ module.exports = {
         Input: './src/popup-pages/Input.tsx',
         walletConn : './src/popup-pages/walletConn.tsx',
         popup: './src/popup-pages/popup.tsx',
+        accounts:'./src/popup-pages/account.ts',
+        program: './src/popup-pages/program.ts'
        
 
     },

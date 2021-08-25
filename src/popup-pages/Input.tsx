@@ -1,10 +1,19 @@
 import React, { useState } from "react";
-import { sendMoney } from "./walletConn";
+import { sendMoney,sendMessage } from "./walletConn";
+import { Connection } from "@solana/web3.js";
+import { WalletAdapter } from "./walletConn";
+import { getChatMessageAccountPubkey } from "./account";
+import { wallet,connection } from "./program";
 
+var sentAdd = "Not initialzied/Found";
 
-const Input: React.FC = () => {
-  const [amount, setAmount] = useState(0);
-  const [address, setAddress] = useState("");
+ const Input: React.FC = () => {
+
+const [amount, setAmount] = useState(0);
+const [address, setAddress] = useState("");
+const [senderChatAdd, setSenderChatAdd] = useState("");
+const [receiverChatAdd, setreceiverChatAdd] = useState("");
+const [message, setmessage] = useState("");
 
   const onChangeAmount = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAmount(e.target.value ? Number(e.target.value) : 0);
@@ -14,12 +23,28 @@ const Input: React.FC = () => {
     setAddress(e.target.value ? e.target.value.toString() : "");
   };
 
+  const onChangeDestAddress = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setreceiverChatAdd(e.target.value ? e.target.value.toString() : "");
+  };
+
+  const onChangeMessage = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setmessage(e.target.value ? e.target.value.toString() : "");
+  };
+
+
   const onClickSendMoney = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
+   // await sendMessage(senderChatAdd,receiverChatAdd,message);
     e.preventDefault();
+    var Chataddress="9e1xLA5vyagZ66v1tzFXyW6UfvvTLpWPy2Gy74fACn8c";
+
     await sendMoney(address, amount);
+    await sendMessage(Chataddress,message);
+
   };
+
+  
 
   
 
@@ -31,6 +56,15 @@ const Input: React.FC = () => {
         </div>
         <div className="address-label">
           <label htmlFor="address">Address</label>
+        </div>
+          <div className="sender_chat_add">
+          <input type="text" value={senderChatAdd}  />
+        </div>
+        <div className="message">
+          <input type="text" value={message} onChange={onChangeMessage} />
+        </div>
+        <div className="receiver_chat_add">
+          <input type="text" value={receiverChatAdd} onChange={onChangeDestAddress} />
         </div>
         <div className="input-amount">
           <input type="text" value={amount} onChange={onChangeAmount} />
