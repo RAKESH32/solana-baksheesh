@@ -45,9 +45,11 @@ module.exports = {
     },
 
     module:{
-        rules:[tsRule],
+        rules:[tsRule,{ test: /\.css$/, use: [ 'style-loader', 'css-loader' ] }],
+        
     },
     plugins,
+    
 
 
 

@@ -51,28 +51,20 @@ const [message, setmessage] = useState("");
   return (
     <form className="input-form">
       <div className="send-inputs">
-        <div className="amount-label">
-          <label htmlFor="amount">Amount (lamports)</label>
-        </div>
-        <div className="address-label">
-          <label htmlFor="address">Address</label>
-        </div>
-          <div className="sender_chat_add">
-          <input type="text" value={senderChatAdd}  />
-        </div>
-        <div className="message">
-          <input type="text" value={message} onChange={onChangeMessage} />
+         
+      <div className="input-address">
+          <input className="input-id" type="text" value={address}  placeholder="Destination Address" onChange={onChangeAddress} />
         </div>
         <div className="receiver_chat_add">
-          <input type="text" value={receiverChatAdd} onChange={onChangeDestAddress} />
+          <input type="text" value={receiverChatAdd}  placeholder="Destination Chat Address" onChange={onChangeDestAddress} />
+        </div>
+         <div className="message">
+          <input type="text" value={message} placeholder="Message" onChange={onChangeMessage} />
         </div>
         <div className="input-amount">
-          <input type="text" value={amount} onChange={onChangeAmount} />
+          <input type="text" value={amount}  placeholder="Amount(SOL)" onChange={onChangeAmount} />
         </div>
-        <div className="input-address">
-          <input type="text" value={address} onChange={onChangeAddress} />
-        </div>
-        <div className="input-send">
+       <div className="input-send">
           <button className="send-buttons" onClick={onClickSendMoney}>
             Submit
           </button>
