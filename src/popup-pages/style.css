@@ -20,7 +20,7 @@
   
   .wrapper{
   
-      max-width: 700px;
+      max-width: 1000px;
       width: 100%;
       border-radius: 5px;
   }
@@ -59,6 +59,10 @@
   
   }
   
+  .transaction{
+
+cursor: pointer;
+  }
   
   #message:checked ~ nav label.message{
     color: #fff;
@@ -73,14 +77,15 @@
   
   .wrapper nav .slider{
     position: absolute;
-    height: 50%;
-    width: 20%;
+    height: 100%;
+    width: 100%;
     border-radius: 5px;
-    z-index: 0;
+    z-index: 2;
     top:25%;
     left: 5%;
     bottom: 0;
     transition: all 0.3s ease;
+    color: #01c479;
   }
   
   #message:checked ~ nav .slider{
@@ -93,13 +98,7 @@
     
   }
   
-  #transaction:checked ~ section .content-1,
-  #message:checked ~ section .content-2,
-  #about:checked ~ section .content-3
-  {
-    display: block;
-  
-  }
+ 
   
   input[type='radio']{
     display: none;
@@ -268,7 +267,7 @@
 
 input[type=text], select {
   width: 100%;
-  padding: 12px 20px;
+  padding: 5px 5px;
   margin: 8px 0;
   display: inline-block;
   border: 1px solid #ccc;
@@ -281,10 +280,108 @@ input[type=text], select {
   display: none;
 }
 
-.App-body, .App , .message ,.input-amount, .input-send{
+.App-body, .App  ,.input-amount, .input-send{
 
   position: relative;
   z-index: 2;
   width: 100%;
 
+}
+
+.messageInput {
+  position: relative;
+  height: 50px;
+  max-width: 560px;
+  background: #fff;
+  width: 100%;
+  padding: 1px;
+  border-radius: 6px;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+}
+
+.messageInput input{
+  height: 100%;
+  width: 100%;
+  outline: none;
+  border: 2px solid rgba(0,0,0,0.2);
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 500;
+  caret-color: #10316b;
+  overflow: hidden;
+
+}
+
+.messageInput input:focus,
+.messageInput input:valid{
+  border-color: #10316b;
+}
+
+.messageInput input::placeholder{
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.messageInput .characters{
+  position: absolute;
+  bottom: 5px;
+  right: 10px;
+  display: flex;
+  align-items: center;
+  color: #01c479;
+}
+
+.btn {
+  background-color: transparent;
+  border: none;
+  color: white;
+  margin-left: 28px;
+  margin-right: 28px;
+  font-size: 16px;
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+}
+
+/* Darker background on mouse-over */
+.btn:hover {
+  color: #eac100;
+}
+
+.content-2{
+
+  display: none;
+
+}
+
+.content-2.activecontent-2{
+
+  display: block;
+
+}
+
+.content-1{
+
+  display: none;
+
+}
+
+.content-1.activecontent-1{
+
+  display: block;
+
+}
+
+.inner{
+  position: relative;
+  height: 40px;
+  max-width: 560px;
+  background: #fff;
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  padding: 20px;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+  text-align: center;
 }

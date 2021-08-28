@@ -58,9 +58,17 @@ const [message, setmessage] = useState("");
         <div className="receiver_chat_add">
           <input type="text" value={receiverChatAdd}  placeholder="Destination Chat Address" onChange={onChangeDestAddress} />
         </div>
-         <div className="message">
-          <input type="text" value={message} placeholder="Message" onChange={onChangeMessage} />
+         <div className="messageInput">
+          {/* <input type="text" value={message} placeholder="Message" onChange={onChangeMessage} /> */}
+          <input placeholder="Write your message" value={message} onChange={onChangeMessage}  required className="InputText"></input>
+          <div className="characters">
+              <span className="signal_num">0</span>
+              <span className="limit_num">/20</span>
+          </div>
         </div>
+       
+
+
         <div className="input-amount">
           <input type="text" value={amount}  placeholder="Amount(SOL)" onChange={onChangeAmount} />
         </div>

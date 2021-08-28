@@ -1,7 +1,8 @@
 import Wallet from '@project-serum/sol-wallet-adapter';
-import React,{FC} from 'react';
+import React,{FC ,useEffect } from 'react';
 import {render} from 'react-dom';
 import Input from './Input';
+import Messages from './messageList';
 import {initWallet} from './walletConn';
 import "./style.css";
 
@@ -11,8 +12,43 @@ interface IProps{
  
 export const Popup: FC<IProps> = () => {
 
+
+  useEffect(() => {
+    
+    var content1 = document.querySelector(".content-1");
+        content1.classList.add("activecontent-1");
+
+  }, [])
+
+
     const accountValidate = () => {
         initWallet();
+      };
+
+
+      const homeView = () => {
+
+        var content2 = document.querySelector(".content-2");
+        content2.classList.remove("activecontent-2");
+
+        var content1 = document.querySelector(".content-1");
+        content1.classList.add("activecontent-1");
+
+
+      };
+
+      const mesageView = () => {
+
+        var content1 = document.querySelector(".content-1");
+        content1.classList.remove("activecontent-1");
+        
+        var content2 = document.querySelector(".content-2");
+        content2.classList.add("activecontent-2");
+
+      };
+
+      const aboutView = () => {
+       
       };
     
 
@@ -25,10 +61,15 @@ export const Popup: FC<IProps> = () => {
       <header>Sol-Buck</header>
       <div>
       <nav>
-      <label htmlFor="transaction" className="transaction"><i className="fa fa-bank"></i></label>
+      {/* <label htmlFor="transaction" className="transaction"><i className="fa fa-bank"></i></label>
        <label htmlFor="message" className="message"><i className="fa fa-comment"></i></label>
        <label htmlFor="about" className="about"><i className="fa fa-info-circle"></i></label>
-        <div className="slider"></div>
+        <div className="slider"></div> */}
+      <button className="btn" onClick= {homeView}><i className="fa fa-bank"></i></button>
+      <button className="btn" onClick= {mesageView}><i className="fa fa-comment"></i></button>
+      <button className="btn" onClick= {aboutView}><i className="fa fa-info-circle"></i></button>
+
+
      </nav>
      </div>
      <section>
@@ -42,13 +83,13 @@ export const Popup: FC<IProps> = () => {
           <div className="App-body">
             <h3>Send Money !!</h3>
             <Input />
-          
+         
           </div>
         </div>
        </div>
        <div className="content content-2">
          <div className="inside_box">
-           <p>Message Page</p>
+         <Messages  />
          </div>
        </div>
        <div className="content content-3">
