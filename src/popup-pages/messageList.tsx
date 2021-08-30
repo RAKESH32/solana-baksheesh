@@ -1,5 +1,5 @@
 import  { useState, useEffect } from "react";
-
+import { reportGreetings } from "./walletConn";
 
 const getLocalItmes = () => {
     
@@ -23,26 +23,22 @@ function Messages() {
         e: React.MouseEvent<HTMLButtonElement, MouseEvent>
       ) => { 
         e.preventDefault();
-        setMessage("hi");
+        var checkStr = await reportGreetings();
+        var resp = checkStr.split(":");
+        setMessage(resp[0]);
+        await onClickAddDiv();
 
         };
 
 
-        const onClickAddMessages = async (
-            e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-          ) => { 
-            e.preventDefault();
-            setMessage("hello");
-            };
+     
 
-            const onClickAddDiv = async (
-                e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-              ) => { 
+            const onClickAddDiv = async () => { 
 
                 var output = document.getElementById('output') || null;
                 var messages =  JSON.parse(localStorage.getItem('msgList'));
 
-                var elems = document.querySelectorAll(".inner");
+                var elems = document.querySelectorAll(".message-blue");
                 elems.forEach(function(element) {
                   element.parentNode.removeChild(element);
                 });
@@ -53,10 +49,16 @@ function Messages() {
 
                   if(messages[i] != ""){
                    
-                        var ele = document.createElement("div");
-                        ele.setAttribute("class","inner");
-                        ele.innerHTML=messages[i];
-                        output.appendChild(ele);
+                        // var ele = document.createElement("div");
+                        // ele.setAttribute("class","inner");
+                        // ele.innerHTML=messages[i];
+                        // output.appendChild(ele);
+                      var blue_cont = document.createElement("div");
+                      blue_cont.setAttribute("class","message-blue");
+                      blue_cont.innerHTML=messages[i];
+                      output.appendChild(blue_cont);
+
+
                   }
                 }
 
@@ -72,16 +74,15 @@ function Messages() {
     }, [message])
 
     return (
-      <div className="out" id="output">
-          <h2>Messgae is {message}</h2>
+      <div className="out">
+          {/* <h2>Messgae is {message}</h2> */}
+          <div className="msg_container"  id="output">
+
+
+
+          </div>
           <button className="send-buttons" onClick={onClickShowMessages}>
             Show Messages
-          </button>
-          <button className="send-buttons" onClick={onClickAddMessages}>
-            Add Messages
-          </button>
-          <button className="send-buttons" onClick={onClickAddDiv}>
-            Refresh
           </button>
       </div>
     );

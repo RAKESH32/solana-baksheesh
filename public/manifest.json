@@ -3,7 +3,23 @@
     "description": "solana-baksheesh",
     "version":"1.0",
     "manifest_version":2,
+    "permissions": [
+        "tabs"
+      ],
+    "icons":{
+        "128": "sb_128.png",
+        "48": "sb_48.png",
+        "32": "sb_32.png",
+        "16": "sb_16.png"
+      },
+    "content_scripts" : [
+        {
+            "matches" : ["<all_urls>"],
+            "js" : ["content.js"]
+        }
+    ],
     "browser_action":{
+        
         "default_popup": "popup.html"
     }
 }

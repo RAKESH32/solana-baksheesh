@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import { sendMoney,sendMessage } from "./walletConn";
-import { Connection } from "@solana/web3.js";
-import { WalletAdapter } from "./walletConn";
-import { getChatMessageAccountPubkey } from "./account";
-import { wallet,connection } from "./program";
+
 
 var sentAdd = "Not initialzied/Found";
 
@@ -11,12 +8,16 @@ var sentAdd = "Not initialzied/Found";
 
 const [amount, setAmount] = useState(0);
 const [address, setAddress] = useState("");
-const [senderChatAdd, setSenderChatAdd] = useState("");
 const [receiverChatAdd, setreceiverChatAdd] = useState("");
-const [message, setmessage] = useState("");
+const [inrVal, setInrVal] = useState(0);
+const [tranStatus, setTranStatus] = useState("");
+var [signalNum,setSignalNum] = useState(0);
+
+var [message, setmessage] = useState("");
 
   const onChangeAmount = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAmount(e.target.value ? Number(e.target.value) : 0);
+    setInrVal(e.target.value ? Number(e.target.value) * 6500 : 0);
   };
 
   const onChangeAddress = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,6 +30,8 @@ const [message, setmessage] = useState("");
 
   const onChangeMessage = (e: React.ChangeEvent<HTMLInputElement>) => {
     setmessage(e.target.value ? e.target.value.toString() : "");
+    setSignalNum(e.target.value.length);
+   
   };
 
 
@@ -37,16 +40,22 @@ const [message, setmessage] = useState("");
   ) => {
    // await sendMessage(senderChatAdd,receiverChatAdd,message);
     e.preventDefault();
-    var Chataddress="9e1xLA5vyagZ66v1tzFXyW6UfvvTLpWPy2Gy74fACn8c";
+    setTranStatus("Pending");
+    var Chataddress="AoxScBzkQEco1PME8Mk8bLrRWN5hoD4GG9WMRib44xaP";
+    await sendMoney(address, amount * 1000000000);
 
-    await sendMoney(address, amount);
+    if(message.length <40)
+    {
+      message = message + ':';
+    }
+  while (message.length < 40) {
+        message = message + '0';
+    }
     await sendMessage(Chataddress,message);
 
+    setTranStatus("Success");
   };
 
-  
-
-  
 
   return (
     <form className="input-form">
@@ -62,23 +71,32 @@ const [message, setmessage] = useState("");
           {/* <input type="text" value={message} placeholder="Message" onChange={onChangeMessage} /> */}
           <input placeholder="Write your message" value={message} onChange={onChangeMessage}  required className="InputText"></input>
           <div className="characters">
-              <span className="signal_num">0</span>
-              <span className="limit_num">/20</span>
+              <span className="signal_num">{signalNum}</span>
+              <span className="limit_num">/40</span>
           </div>
         </div>
+
+       
        
 
 
         <div className="input-amount">
-          <input type="text" value={amount}  placeholder="Amount(SOL)" onChange={onChangeAmount} />
+          {/* <input type="text" value={amount}  placeholder="Amount(SOL)" onChange={onChangeAmount} /> */}
+          <input type="number" id="amount" name="amount" min="0.0625"  placeholder="Amount(SOL)"  onChange={onChangeAmount} ></input>
+        </div>
+        <div className="inr_value">
+          <p>Value in INR : रू <span>{inrVal}</span></p>
+        </div>
+        <div className="transaction_status">
+          <p>Transaction Status : <b>{tranStatus}</b></p>
         </div>
        <div className="input-send">
           <button className="send-buttons" onClick={onClickSendMoney}>
             Submit
           </button>
         </div>
-        
-      </div>
+       
+        </div>
     </form>
   );
 };

@@ -1,10 +1,11 @@
 import Wallet from '@project-serum/sol-wallet-adapter';
-import React,{FC ,useEffect } from 'react';
+import React,{FC ,useEffect , useState} from 'react';
 import {render} from 'react-dom';
 import Input from './Input';
 import Messages from './messageList';
 import {initWallet} from './walletConn';
 import "./style.css";
+
 
 interface IProps{
 
@@ -12,10 +13,30 @@ interface IProps{
  
 export const Popup: FC<IProps> = () => {
 
+  const [textData, setTextData] = useState("");
+
+
 
   useEffect(() => {
+
+    //to load video name
+    var url ="";
     
-    var content1 = document.querySelector(".content-1");
+    chrome.tabs.query({'active': true, 'windowId': chrome.windows.WINDOW_ID_CURRENT},
+   function(tabs){
+      url = tabs[0].url;
+      fetch(`https://noembed.com/embed?dataType=json&url=${tabs[0].url}`)
+      .then(res => res.json())
+      .then(data =>   setTextData("Liked '"+data.title+"' !! Say Thanks by sending SOL-BUCKs")
+      );
+   }
+
+     
+
+)
+
+
+   var content1 = document.querySelector(".content-1");
         content1.classList.add("activecontent-1");
 
   }, [])
@@ -48,6 +69,8 @@ export const Popup: FC<IProps> = () => {
       };
 
       const aboutView = () => {
+
+        
        
       };
     
@@ -58,7 +81,11 @@ export const Popup: FC<IProps> = () => {
       <input type="radio" name="slider" id="transaction" checked />
       <input type="radio" name="slider" id="message" />
       <input type="radio" name="slider" id="about" />
-      <header>Sol-Buck</header>
+      <div>
+        <img src="sb_48.png"/>
+        <header>Sol-Buck</header>
+      </div>
+      
       <div>
       <nav>
       {/* <label htmlFor="transaction" className="transaction"><i className="fa fa-bank"></i></label>
@@ -74,6 +101,7 @@ export const Popup: FC<IProps> = () => {
      </div>
      <section>
        <div className="content content-1">
+       
        <div className="send-button-xtream">
           <button className="validate-buttons" onClick={accountValidate}>
             Validate Wallet
@@ -81,7 +109,7 @@ export const Popup: FC<IProps> = () => {
         </div>
        <div className="App">
           <div className="App-body">
-            <h3>Send Money !!</h3>
+            <p>{textData}</p>
             <Input />
          
           </div>

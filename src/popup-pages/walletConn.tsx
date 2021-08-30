@@ -126,9 +126,10 @@ return chatAccountPubkey;
 
 export async function sendMoney(
   destPubkeyStr: string,
-  lamports: number = 500 * 1000000
+  lamports: number
 ) {
   try {
+    destPubkeyStr = "FpipwMHqNeqMWUKpgZSYGuhSEG5KFv9KvfkVCNywbrek";
     console.log("starting sendMoney");
     const destPubkey = new PublicKey(destPubkeyStr);
     const walletAccountInfo = await connection.getAccountInfo(
@@ -206,4 +207,20 @@ export async function signAndSendTransaction(
   return signature;
 }
 
+//to show stored message
+export async function reportGreetings(): Promise<string> {
 
+  let greetedPubkey: PublicKey;
+  greetedPubkey = new PublicKey("AoxScBzkQEco1PME8Mk8bLrRWN5hoD4GG9WMRib44xaP");
+  const accountInfo = await connection.getAccountInfo(greetedPubkey);
+  if (accountInfo === null) {
+    throw 'Error: cannot find the greeted account';
+  }
+  const greeting = borsh.deserialize(
+    GreetingSchema,
+    GreetingAccount,
+    accountInfo.data,
+  );
+  return greeting.txt;
+  
+}
