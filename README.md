@@ -2,7 +2,7 @@ This Project makes a google chrome extension, which helps in sending message and
 
 Below are the commands
 
-To install all dependcies and put them in a node_module
+To install all dependcies and put them in a node_module folder
 npm install
 
 To add react-dom in dependcies (optional)
@@ -11,4 +11,4 @@ yarn add react react-dom
 To run webpack and move all code in dist folder
 yarn dev
 
-Now upload dist folder in chrome extension store
+Upload dist folder in chrome extension store
