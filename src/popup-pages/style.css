@@ -395,7 +395,9 @@ input[type="number"], select {
 .App-body p {
 
   color: #dee1ec;
-  padding: 10px 0px 20px 0px;
+  padding: 10px 0px 5px 0px;
+  text-align: center;
+  font-weight: 500;
 
 }
 

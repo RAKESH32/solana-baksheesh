@@ -1,5 +1,4 @@
-import Wallet from '@project-serum/sol-wallet-adapter';
-import React,{FC ,useEffect , useState} from 'react';
+import {FC ,useEffect , useState} from 'react';
 import {render} from 'react-dom';
 import Input from './Input';
 import Messages from './messageList';
@@ -14,7 +13,18 @@ interface IProps{
 export const Popup: FC<IProps> = () => {
 
   const [textData, setTextData] = useState("");
+  const [footerData, setFooterData] = useState("");
 
+  function getJSONData(yourUrl:string) {
+    var Httpreq = new XMLHttpRequest();
+    try {
+        Httpreq.open("GET", yourUrl, true);
+        Httpreq.send(null);
+    } catch (ex) {
+        alert(ex.message);
+    }
+    return Httpreq.responseText;
+}
 
 
   useEffect(() => {
@@ -29,21 +39,29 @@ export const Popup: FC<IProps> = () => {
       .then(res => res.json())
       .then(data =>   setTextData("Liked '"+data.title+"' !! Say Thanks by sending SOL-BUCKs")
       );
-   }
 
-     
-
-)
+      callapi(url.slice(-11));
 
 
-   var content1 = document.querySelector(".content-1");
+    })
+        var content1 = document.querySelector(".content-1");
         content1.classList.add("activecontent-1");
 
   }, [])
 
 
+  function callapi (videoId)  {
+    fetch("https://youtube.googleapis.com/youtube/v3/videos?part=snippet&id="+videoId+"&key=AIzaSyAgXcIdvLAaaklt9vjRS19i_eQjPpXk-Os")
+    .then(res => res.json())
+    .then(data => { if(data.items[0].snippet.channelTitle != "Rakesh") {setFooterData(data.items[0].snippet.channelTitle+" is not registered on SOL-BUCK.")} else {setFooterData(data.items[0].snippet.channelTitle)}}
+    );
+  }
+
     const accountValidate = () => {
         initWallet();
+       //to fetch channel name
+     
+      
       };
 
 
@@ -109,9 +127,10 @@ export const Popup: FC<IProps> = () => {
         </div>
        <div className="App">
           <div className="App-body">
+            <p>{footerData}</p>
             <p>{textData}</p>
             <Input />
-         
+           
           </div>
         </div>
        </div>

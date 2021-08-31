@@ -1,10 +1,7 @@
 import React, { useState } from "react";
 import { sendMoney,sendMessage } from "./walletConn";
 
-
-var sentAdd = "Not initialzied/Found";
-
- const Input: React.FC = () => {
+const Input: React.FC = () => {
 
 const [amount, setAmount] = useState(0);
 const [address, setAddress] = useState("");
@@ -40,7 +37,7 @@ var [message, setmessage] = useState("");
   ) => {
    // await sendMessage(senderChatAdd,receiverChatAdd,message);
     e.preventDefault();
-    setTranStatus("Pending");
+    setTranStatus("Transaction Status : Pending");
     var Chataddress="AoxScBzkQEco1PME8Mk8bLrRWN5hoD4GG9WMRib44xaP";
     await sendMoney(address, amount * 1000000000);
 
@@ -53,7 +50,7 @@ var [message, setmessage] = useState("");
     }
     await sendMessage(Chataddress,message);
 
-    setTranStatus("Success");
+    setTranStatus("Transaction Status : Success");
   };
 
 
@@ -88,7 +85,7 @@ var [message, setmessage] = useState("");
           <p>Value in INR : रू <span>{inrVal}</span></p>
         </div>
         <div className="transaction_status">
-          <p>Transaction Status : <b>{tranStatus}</b></p>
+          <p><b>{tranStatus}</b></p>
         </div>
        <div className="input-send">
           <button className="send-buttons" onClick={onClickSendMoney}>
